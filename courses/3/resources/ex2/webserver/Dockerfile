@@ -10,24 +10,27 @@ FROM ubuntu:latest
 MAINTAINER Jacques Celere "jacques.celere@gmail.com"
 
 # Update and install python-3
-RUN xxxx 
+RUN apt-get update && \
+    apt-get install -y python3
 
 # Create /home/www
-RUN xxxx
+RUN mkdir /home/www
 
 # Set /home/www as WORKDIR
-WORKDIR xxxx
+WORKDIR /home/www
 
 # Copy index.html inside container, in /home/www
 # NOTE: code could also be retrieved from git repository
-ADD xxxx
+ADD index.html /home/www/index.html
 
 # Copy hello.py inside container, in /home/src
 # NOTE: putting this command to the last line 
 # would allow to rebuild only this layer if if hello.py is changed
-ADD xxxx
+ADD hello.py /home/src/hello.py
 
 # Launch /home/src/hello.py at container startup 
 # It will serve files located where it has been launch
-CMD xxxx 
+EXPOSE 8000
+
+CMD python3 /home/src/hello.py
 
